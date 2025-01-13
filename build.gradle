@@ -25,7 +25,7 @@ plugins {
 
 
 group = 'nrw.florian.sdk'
-version = '0.1-SNAPSHOT'
+version = '0.1'
 var title = 'Cloudflare API v4 Java SDK'
 var authors = 'Florian J. Kleine-Vorholt'
 description = 'A Java client for the Cloudflare API v4'
@@ -48,6 +48,15 @@ repositories {
  * Dependency definition
  */
 dependencies {
+
+    // Apache commons
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.11.0'
+
+    // HTTP-Client
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.4.1'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.36'
@@ -111,7 +120,9 @@ jar {
         attributes["Implementation-Title"] = title
         attributes["Implementation-Version"] = project.version
         attributes["Implementation-Vendor"] = authors
-        attributes["Implementation-Baseline"] = project.version + "-" + LocalDateTime.now()
+        attributes["Implementation-Baseline"] = project.version + "-B" +
+                (System.getProperty("system.build.number") as String) ?: (System.getenv("BUILD_NUMBER") as String) +
+                "-" + LocalDateTime.now()
     }
 }
 

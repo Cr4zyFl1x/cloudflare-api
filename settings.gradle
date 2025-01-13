@@ -1,2 +1,16 @@
-rootProject.name = 'cloudflare-api'
+/**
+ * Plugin repository configuration
+ */
+pluginManagement {
+    repositories {
+        maven {
+            url 'https://nexus.rz.kleine-vorholt.eu/repository/gradle-plugins/'
+        }
+    }
+}
 
+
+/**
+ * Root-Project artifact id
+ */
+rootProject.name = 'cloudflare-api'

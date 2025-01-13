@@ -1,14 +1,52 @@
+import java.time.LocalDateTime
+
+/**
+ * Buildscript configuration
+ */
+buildscript {
+    repositories {
+        maven {
+            url "https://nexus.rz.kleine-vorholt.eu/repository/maven-public/"
+        }
+    }
+}
+
+
+/**
+ * Build plugins
+ */
 plugins {
     id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'pmd'
+    id 'idea'
 }
+
 
 group = 'nrw.florian.sdk'
 version = '0.1-SNAPSHOT'
+var title = 'Cloudflare API v4 Java SDK'
+var authors = 'Florian J. Kleine-Vorholt'
+description = 'A Java client for the Cloudflare API v4'
 
+
+/**
+ * Remote-Repositories
+ */
 repositories {
-    mavenCentral()
+    maven {
+        url "https://nexus.rz.kleine-vorholt.eu/repository/maven-public/"
+    }
+    maven {
+        url "https://nexus.rz.kleine-vorholt.eu/repository/maven-opensource/"
+    }
 }
 
+
+/**
+ * Dependency definition
+ */
 dependencies {
 
     // Lombok
@@ -17,12 +55,109 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.36'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
 
-
     // JUnit
-    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation platform('org.junit:junit-bom:5.11.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+
+/**
+ * IntelliJ configuration
+ */
+idea {
+    module {
+        downloadSources = true
+    }
+}
+
+
+/**
+ * Java configuration
+ */
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+    withJavadocJar()
+}
+
+
+/**
+ * Javadoc compilation configuration
+ */
+tasks.withType(Javadoc).configureEach {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+
+/**
+ * Testsuite
+ */
 test {
     useJUnitPlatform()
+}
+
+
+/**
+ * Jar-Build
+ */
+jar {
+    DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes["Implementation-Title"] = title
+        attributes["Implementation-Version"] = project.version
+        attributes["Implementation-Vendor"] = authors
+        attributes["Implementation-Baseline"] = project.version + "-" + LocalDateTime.now()
+    }
+}
+
+
+/**
+ * Deploy to NEXUS
+ */
+publishing {
+    publications {
+        mainJava(MavenPublication) {
+
+            // Version
+            version = project.version
+
+            // Module source
+            from components.java
+
+            // POM
+            pom {
+                name = title
+                description = project.description
+
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'Cr4zyFl1x'
+                        name = authors
+                        email = 'florian@kleine-vorholt.net'
+                    }
+                }
+            }
+
+        }
+    }
+    repositories {
+        maven {
+            url "https://nexus.rz.kleine-vorholt.eu/repository/maven-community/"
+            credentials {
+                username = System.getenv("MAVEN_USERNAME") ?: System.getProperty("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD") ?: System.getProperty("MAVEN_PASSWORD")
+            }
+        }
+    }
 }

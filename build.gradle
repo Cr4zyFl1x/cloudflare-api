@@ -29,7 +29,6 @@ version = '0.1-SNAPSHOT'
 var title = 'Cloudflare API v4 Java SDK'
 var authors = 'Florian J. Kleine-Vorholt'
 description = 'A Java client for the Cloudflare API v4'
-System.setProperty("artifact.version", project.version as String)
 
 
 /**

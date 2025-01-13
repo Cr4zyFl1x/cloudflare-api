@@ -121,7 +121,7 @@ jar {
         attributes["Implementation-Version"] = project.version
         attributes["Implementation-Vendor"] = authors
         attributes["Implementation-Baseline"] = project.version + "-B" +
-                (System.getProperty("system.build.number") as String) ?: (System.getenv("BUILD_NUMBER") as String) +
+                ((System.getProperty("build.number") as String) ?: (System.getenv("BUILD_NUMBER") as String)) +
                 "-" + LocalDateTime.now()
     }
 }

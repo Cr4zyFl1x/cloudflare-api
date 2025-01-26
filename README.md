@@ -1,5 +1,5 @@
 # Cloudflare API v4 Java SDK
-[![License][license-img]][license-url]
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![CI](https://ci.rz.kleine-vorholt.eu/app/rest/builds/buildType:(id:CloudflareApiSdk_GeneralBuild)/statusIcon)
 
 This Cloudflare API Library / Java SDK communicates with the [Cloudflare API v4](https://api.cloudflare.com/) and
@@ -31,12 +31,12 @@ To see the **available versions**, just take a look at the **nexus artifacts [he
 **Gradle DSL**
 ```groovy
 dependencies {
-  compile 'nrw.florian.sdk:cloudflare-api:%VERSION_TAG_HERE%'
+  implementation 'nrw.florian.sdk:cloudflare-api:%VERSION_TAG_HERE%'
 }
 
 repositories {
   maven {
-    url =  'https://nexus.rz.kleine-vorholt.eu/repository/maven-opensource/'
+    url = 'https://nexus.rz.kleine-vorholt.eu/repository/maven-opensource/'
   }
 }
 ```

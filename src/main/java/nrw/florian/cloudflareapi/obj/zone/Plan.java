@@ -5,20 +5,22 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 import nrw.florian.cloudflareapi.obj.Identifiable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author Florian J. Kleine-Vorholt
  */
 @Getter
 @Setter
-public class Plan implements Identifiable {
+public final class Plan implements Identifiable {
 
     @Expose
     @SerializedName("id")
     private String id;
 
     @Expose
-    @SerializedName("id")
+    @SerializedName("name")
     private String name;
 
     @Expose
@@ -45,4 +47,13 @@ public class Plan implements Identifiable {
     @SerializedName("can_subscribe")
     @Expose
     private Boolean canSubscribe;
+
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("Name", name)
+                .append("Price", price)
+                .toString();
+    }
 }

@@ -4,23 +4,75 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
+import nrw.florian.cloudflareapi.constant.ZoneStatus;
+import nrw.florian.cloudflareapi.constant.ZoneType;
 import nrw.florian.cloudflareapi.obj.Identifiable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
 /**
+ * Zone information as represented in {@code result} json object on calls for zone component.
+ *
+ * <pre>
+ * "result": {
+ *   "id": "023e105f4ecef8ad9ca31a8372d0c353",
+ *   "account": {
+ *     "id": "023e105f4ecef8ad9ca31a8372d0c353",
+ *     "name": "Example Account Name"
+ *   },
+ *   "activated_on": "2014-01-02T00:01:00.12345Z",
+ *   "created_on": "2014-01-01T05:20:00.12345Z",
+ *   "development_mode": 7200,
+ *   "meta": {
+ *     "cdn_only": true,
+ *     "custom_certificate_quota": 1,
+ *     "dns_only": true,
+ *     "foundation_dns": true,
+ *     "page_rule_quota": 100,
+ *     "phishing_detected": false,
+ *     "step": 2
+ *   },
+ *   "modified_on": "2014-01-01T05:20:00.12345Z",
+ *   "name": "example.com",
+ *   "name_servers": [
+ *     "bob.ns.cloudflare.com",
+ *     "lola.ns.cloudflare.com"
+ *   ],
+ *   "original_dnshost": "NameCheap",
+ *   "original_name_servers": [
+ *     "ns1.originaldnshost.com",
+ *     "ns2.originaldnshost.com"
+ *   ],
+ *   "original_registrar": "GoDaddy",
+ *   "owner": {
+ *     "id": "023e105f4ecef8ad9ca31a8372d0c353",
+ *     "name": "Example Org",
+ *     "type": "organization"
+ *   },
+ *   "paused": true,
+ *   "status": "initializing",
+ *   "type": "full",
+ *   "vanity_name_servers": [
+ *     "ns1.example.com",
+ *     "ns2.example.com"
+ *   ]
+ * }
+ * </pre>
+ *
  * @author Florian J. Kleine-Vorholt
  */
 @Getter
 @Setter
-public class Zone implements Identifiable {
+public final class Zone implements Identifiable {
 
     @Expose
-    @SerializedName(value = "id")
-    private int id;
+    @SerializedName("id")
+    private String id;
 
     @Expose
-    @SerializedName(value = "name")
+    @SerializedName("name")
     private String name;
 
     @Expose
@@ -69,7 +121,7 @@ public class Zone implements Identifiable {
 
     @Expose
     @SerializedName("status")
-    private String status;
+    private ZoneStatus status;
 
     @Expose
     @SerializedName("paused")
@@ -77,5 +129,15 @@ public class Zone implements Identifiable {
 
     @Expose
     @SerializedName("type")
-    private String type;
+    private ZoneType type;
+
+
+    @Override
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("ID", id)
+                .append("Name", name)
+                .toString();
+    }
 }

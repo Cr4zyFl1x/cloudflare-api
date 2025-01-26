@@ -107,6 +107,10 @@ tasks.withType(Javadoc).configureEach {
  */
 test {
     useJUnitPlatform()
+
+    filter {
+        excludeTestsMatching("*_CFIntegTest")
+    }
 }
 
 

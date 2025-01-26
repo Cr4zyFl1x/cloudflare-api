@@ -5,6 +5,18 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 
 /**
+ * Additional result information used for e.g. paging. Provided by the cloudflare api in the {@code result_info}
+ * json object.
+ *
+ * <pre>
+ *  "result_info": {
+ *     "count": 1,
+ *     "page": 1,
+ *     "per_page": 20,
+ *     "total_count": 2000
+ *  }
+ * </pre>
+ *
  * @author Florian J. Kleine-Vorholt
  */
 @Getter

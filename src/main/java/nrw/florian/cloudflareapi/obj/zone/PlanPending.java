@@ -11,7 +11,7 @@ import nrw.florian.cloudflareapi.obj.Identifiable;
  */
 @Getter
 @Setter
-public class PlanPending implements Identifiable {
+public final class PlanPending implements Identifiable {
 
     @Expose
     @SerializedName("id")

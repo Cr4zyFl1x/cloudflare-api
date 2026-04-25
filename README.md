@@ -17,7 +17,7 @@ To see the **available versions**, just take a look at the **nexus artifacts [he
 <dependency>
     <groupId>nrw.florian.sdk</groupId>
     <artifactId>cloudflare-api</artifactId>
-    <version>%VERSION_TAG_HERE%</version>
+    <version>0.1</version>
 </dependency>
 	
 <repositories>
@@ -31,7 +31,7 @@ To see the **available versions**, just take a look at the **nexus artifacts [he
 **Gradle DSL**
 ```groovy
 dependencies {
-  implementation 'nrw.florian.sdk:cloudflare-api:%VERSION_TAG_HERE%'
+  implementation 'nrw.florian.sdk:cloudflare-api:0.1'
 }
 
 repositories {
